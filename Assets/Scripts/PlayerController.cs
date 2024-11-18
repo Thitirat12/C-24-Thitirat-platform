@@ -33,13 +33,13 @@ public class PlayerController : MonoBehaviour {
 		grounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, whatIsGround);
 		anim.SetBool("Ground", grounded);
 
-		anim.SetFloat("vSpeed", r2d.velocity.y);
+		anim.SetFloat("vSpeed", r2d.linearVelocity.y);
 
 		float move = Input.GetAxis("Horizontal");
 
 		anim.SetFloat("Speed", Mathf.Abs(move));
 
-		r2d.velocity = new Vector2(move*maxSpeed, r2d.velocity.y);
+		r2d.linearVelocity = new Vector2(move*maxSpeed, r2d.linearVelocity.y);
 
 		if(move > 0 && !facingRight)
 			Flip();

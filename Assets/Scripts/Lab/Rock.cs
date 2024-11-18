@@ -1,26 +1,30 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Rock : Weapon
 {
-
-    private Rigidbody2D rb2d;
-    private Vector2 force;
-
-    public override void OnHitWith(Character a)
+    public void Start()
     {
-        
+        Init(20, this.shooter);
+        rb2d = GetComponent<Rigidbody2D>();
+        force = new Vector2(GetShootDirection() * 10, 100);
+        Move();
     }
+
+    Rigidbody2D rb2d;
+    Vector2 force;
 
     public override void Move()
     {
-        Debug.Log("Rock move with RigidBody: Force");
+        rb2d.AddForce(force);
+        //Debug.Log("Rock เคลื่อนที่ด้วย RigidBody: force");
     }
-
-    private void Start()
+    public override void OnHitWith(Character character)
     {
-        Move();
-        Damage = 40;
+        if (character is Player)
+        {
+            character.TakeDamage(this.Damage);
+        }
     }
 }
